@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<TestClass name="123">
+	<Video width="100" heigh="200" />
+	<Video width="100" heigh="200" />
+	<Video width="100" heigh="200" />
+</TestClass>
