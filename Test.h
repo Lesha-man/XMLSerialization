@@ -1,15 +1,14 @@
 #pragma once
 #include <string>
 #include "ISerializable.h"
+#include "Test2.h"
 class Test : public ISerializable
 {
 public:
-	int SomeInt = 666;
-	float SomeFloat = 42.2f;
-	Test();
+	int SomeInt;
+	float SomeFloat;
+	Test2* test2;
+	Test(int i, float f);
 private:
-	//serialize(SomeInt);
-	//serialize(SomeFloat);
-	//serialize(SomeString);
 };
 

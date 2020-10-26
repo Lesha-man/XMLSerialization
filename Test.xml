@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<TestingCl SomeInt="666" SomeFloat="42.2000008">
+	<TestingCl SomeInt="666" SomeFloat="42.2000008" />
+</TestingCl>

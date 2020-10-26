@@ -9,3 +9,4 @@ public:
 private:
 	pugi::xml_document* document;
 };
+

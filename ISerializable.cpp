@@ -21,12 +21,12 @@ SerializeElement::SerializeElement(std::string name, ISerializable* element) : n
 	type = Serializable;
 }
 
-SerializeElement::SerializeElement(std::string name, int element): name(name), value(&element)
+SerializeElement::SerializeElement(std::string name, int* element): name(name), value(element)
 {
 	type = Int;
 }
 
-SerializeElement::SerializeElement(std::string name, float element): name(name), value(&element)
+SerializeElement::SerializeElement(std::string name, float* element): name(name), value(element)
 {
 	type = Float;
 }
@@ -38,7 +38,12 @@ std::string SerializeElement::GetName()
 
 void* SerializeElement::GetValue()
 {
-	return new void*(value);
+	return value;
+}
+
+int* SerializeElement::GetValue()
+{
+	return value;
 }
 
 serializableTypess SerializeElement::GetType()

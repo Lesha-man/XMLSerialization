@@ -2,6 +2,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include "pugixml.hpp"
 
 enum serializableTypess
 {
@@ -9,17 +10,7 @@ enum serializableTypess
 	Int,
 	Float
 };
-
-class ISerializable
-{
-private:
-	std::string name;
-	std::vector<SerializeElement*> * serializableElements = new std::vector<SerializeElement*>();
-public:
-	bool AddSerializable(SerializeElement*);
-	std::vector<SerializeElement*>* GetSerializableElements();
-	std::string GetName();
-};
+class ISerializable;
 
 class SerializeElement
 {
@@ -29,11 +20,22 @@ private:
 	serializableTypess type;
 public:
 	SerializeElement(std::string name, ISerializable* element);
-	SerializeElement(std::string name, int element);
-	SerializeElement(std::string name, float element);
+	SerializeElement(std::string name, int* element);
+	SerializeElement(std::string name, float* element);
 
 	std::string GetName();
 	void* GetValue();
 	serializableTypess GetType();
 
+};
+class ISerializable
+{
+private:
+	std::vector<SerializeElement*>* serializableElements = new std::vector<SerializeElement*>();
+protected:
+	std::string name;
+public:
+	bool AddSerializable(SerializeElement*);
+	std::vector<SerializeElement*>* GetSerializableElements();
+	std::string GetName();
 };

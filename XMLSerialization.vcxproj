@@ -151,6 +151,7 @@
     <ClCompile Include="ISerializable.cpp" />
     <ClCompile Include="pugixml.cpp" />
     <ClCompile Include="Test.cpp" />
+    <ClCompile Include="Test2.cpp" />
     <ClCompile Include="XMLSerialization.cpp" />
     <ClCompile Include="XMLSerializer.cpp" />
   </ItemGroup>
@@ -159,10 +160,11 @@
     <ClInclude Include="pugiconfig.hpp" />
     <ClInclude Include="pugixml.hpp" />
     <ClInclude Include="Test.h" />
+    <ClInclude Include="Test2.h" />
     <ClInclude Include="XMLSerializer.h" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Debug\Test.xml" />
+    <Xml Include="Test.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
