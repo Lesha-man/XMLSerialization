@@ -8,6 +8,11 @@ XMLSerializer::XMLSerializer(pugi::xml_document* doc): document(doc)
 {
 }
 
+XMLSerializer::~XMLSerializer()
+{
+	delete document;
+}
+
 void CreateNode(ISerializable* obj, pugi::xml_node* node)
 {
 	int a = 0;
@@ -16,15 +21,15 @@ void CreateNode(ISerializable* obj, pugi::xml_node* node)
 	{
 		switch ((*serializableElements)[i]->GetType())
 		{
-		case Int: {
+		case eint: {
 			node->append_attribute((*serializableElements)[i]->GetName().c_str()).set_value(*(int*)serializableElements->at(i)->GetValue());
 			break;
 		}
-		case Float: {
+		case efloat: {
 			node->append_attribute((*serializableElements)[i]->GetName().c_str()).set_value(*(float*)((*serializableElements)[i]->GetValue()));
 			break;
 		}
-		case Serializable: {
+		case eISerializable: {
 			CreateNode((ISerializable*)(*serializableElements)[i]->GetValue(), &node->append_child(((ISerializable*)((*serializableElements)[i]->GetValue()))->GetName().c_str()));
 			break;
 		}
@@ -42,16 +47,16 @@ void CreateNode(ISerializable* obj, pugi::xml_node* node)
 //{
 //	node->append_attribute(element->GetName().c_str()).set_value(*(float*)(element->GetValue()));
 //}
-//void SSerialize(pugi::xml_node* node, SerializeElement* element)
+//void ISerializableSerialize(pugi::xml_node* node, SerializeElement* element)
 //{
 //	CreateNode((ISerializable*)(element->GetValue()), &node->append_child(((ISerializable*)(element->GetValue()))->GetName().c_str()));
 //}
 
-bool XMLSerializer::Serialize(ISerializable* obj)
+bool XMLSerializer::Serialize(ISerializable* obj, char* fileName)
 {
 	pugi::xml_node* node = new pugi::xml_node(document->append_child(obj->GetName().c_str()));
 	CreateNode(obj, node);
-	document->save_file("Test.xml");
+	document->save_file(fileName);
 	delete node;
 	return true;
 }
@@ -64,15 +69,15 @@ void ReadNode(ISerializable* obj, pugi::xml_node* node)
 	{
 		switch ((*serializableElements)[i]->GetType())
 		{
-		case Int: {
+		case eint: {
 			*(int*)(*serializableElements)[i]->GetValue() = std::atoi(node->attribute((*serializableElements)[i]->GetName().c_str()).value());
 			break;
 		}
-		case Float: {
+		case efloat: {
 			*(float*)(*serializableElements)[i]->GetValue() = std::atof(node->attribute((*serializableElements)[i]->GetName().c_str()).value());
 			break;
 		}
-		case Serializable: {
+		case eISerializable: {
 			ReadNode((ISerializable*)(*serializableElements)[i]->GetValue(), &node->child(((ISerializable*)((*serializableElements)[i]->GetValue()))->GetName().c_str()));
 			break;
 		}
@@ -82,9 +87,9 @@ void ReadNode(ISerializable* obj, pugi::xml_node* node)
 	}
 }
 
-bool XMLSerializer::Deserialize(ISerializable* obj)
+bool XMLSerializer::Deserialize(ISerializable* obj, char* fileName)
 {
-	document->load_file("Test.xml");
+	document->load_file(fileName);
 	ReadNode(obj, &document->child(obj->GetName().c_str()));
 	return true;
 }

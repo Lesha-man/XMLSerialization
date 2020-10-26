@@ -4,30 +4,33 @@
 #include <vector>
 #include "pugixml.hpp"
 
-enum serializableTypess
-{
-	Serializable,
-	Int,
-	Float
-};
 class ISerializable;
+
+
+enum serializableTypes
+{
+	eISerializable,
+	eint,
+	efloat
+};
+
+#define serializableType(type) SerializeElement(std::string name, type* element) : sName(name), sValue(element), sType(e##type) {}
 
 class SerializeElement
 {
 private:
-	std::string name;
-	void* value;
-	serializableTypess type;
+	std::string sName;
+	void* sValue;
+	serializableTypes sType;
 public:
-	SerializeElement(std::string name, ISerializable* element);
-	SerializeElement(std::string name, int* element);
-	SerializeElement(std::string name, float* element);
-
+	serializableType(ISerializable)
+	serializableType(int)
+	serializableType(float)
 	std::string GetName();
 	void* GetValue();
-	serializableTypess GetType();
-
+	serializableTypes GetType();
 };
+
 class ISerializable
 {
 private:
