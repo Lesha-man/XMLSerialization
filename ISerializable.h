@@ -2,33 +2,29 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <typeinfo>
 #include "pugixml.hpp"
 
 class ISerializable;
 
-
-enum serializableTypes
-{
-	eISerializable,
-	eint,
-	efloat
-};
-
-#define serializableType(type) SerializeElement(std::string name, type* element) : sName(name), sValue(element), sType(e##type) {}
+//#define serializableType(type) SerializeElement(std::string name, type* element) : sName(name), sValue(element), sType(e##type) {}
 
 class SerializeElement
 {
 private:
-	std::string sName;
+	char* sName;
 	void* sValue;
-	serializableTypes sType;
+	const char* sType;
 public:
-	serializableType(ISerializable)
-	serializableType(int)
-	serializableType(float)
-	std::string GetName();
-	void* GetValue();
-	serializableTypes GetType();
+	SerializeElement(char* name, int* element) : sName(name), sValue(element), sType(typeid(element).name()) {}
+	SerializeElement(char* name, float* element) : sName(name), sValue(element), sType(typeid(element).name()) {}
+	SerializeElement(char* name, ISerializable* element) : sName(name), sValue(element), sType(typeid(element).name()) {}
+	//serializableType(ISerializable)
+	//serializableType(int)
+	//serializableType(float)
+	char* GetName() { return &*sName; }
+	void* GetValue() { return sValue; }
+	const char* GetType() { return sType; }
 };
 
 class ISerializable
@@ -36,9 +32,9 @@ class ISerializable
 private:
 	std::vector<SerializeElement*>* serializableElements = new std::vector<SerializeElement*>();
 protected:
-	std::string name;
+	char* name;
 public:
-	bool AddSerializable(SerializeElement*);
+	void AddSerializable(SerializeElement*);
 	std::vector<SerializeElement*>* GetSerializableElements();
-	std::string GetName();
+	char* GetName() { return name; }
 };
