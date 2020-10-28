@@ -2,7 +2,7 @@
 #include <string>
 #include "ISerializable.h"
 #include "Test2.h"
-class Test : public ISerializable
+class Test : public polySerial::ISerializable
 {
 public:
 	int SomeInt;

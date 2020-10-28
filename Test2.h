@@ -1,7 +1,6 @@
 #pragma once
 #include "ISerializable.h"
-class Test2 :
-    public ISerializable
+class Test2 : public polySerial::ISerializable
 {
 public:
 	int SomeInt;
