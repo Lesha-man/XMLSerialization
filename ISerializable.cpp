@@ -1,11 +1,19 @@
 #include "ISerializable.h"
 
-void ISerializable::AddSerializable(SerializeElement* element)
+ISerializable::~ISerializable()
 {
-	serializableElements->push_back(element);
+	for (size_t i = 0; i < serializableElements.size(); i++)
+	{
+		delete serializableElements[i];
+	}
 }
 
-std::vector<SerializeElement*>* ISerializable::GetSerializableElements()
+void ISerializable::AddSerializable(SerializeElement* element)
 {
-	return new std::vector<SerializeElement*>(*serializableElements);
+	serializableElements.push_back(element);
+}
+
+std::vector<SerializeElement*> ISerializable::GetSerializableElements()
+{
+	return serializableElements;
 }

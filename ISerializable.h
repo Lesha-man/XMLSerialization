@@ -12,29 +12,30 @@ class ISerializable;
 class SerializeElement
 {
 private:
-	char* sName;
-	void* sValue;
+	const char* sName;
+	const void* sValue;
 	const char* sType;
 public:
-	SerializeElement(char* name, int* element) : sName(name), sValue(element), sType(typeid(element).name()) {}
-	SerializeElement(char* name, float* element) : sName(name), sValue(element), sType(typeid(element).name()) {}
-	SerializeElement(char* name, ISerializable* element) : sName(name), sValue(element), sType(typeid(element).name()) {}
+	SerializeElement(const char* name, int* element) : sName(name), sValue(element), sType((char*)typeid(element).name()) {}
+	SerializeElement(const char* name, float* element) : sName(name), sValue(element), sType((char*)typeid(element).name()) {}
+	SerializeElement(const char* name, ISerializable* element) : sName(name), sValue(element), sType((char*)typeid(element).name()) {}
 	//serializableType(ISerializable)
 	//serializableType(int)
 	//serializableType(float)
-	char* GetName() { return &*sName; }
-	void* GetValue() { return sValue; }
+	const char* GetName() { return sName; }
+	const void* GetValue() { return sValue; }
 	const char* GetType() { return sType; }
 };
 
 class ISerializable
 {
 private:
-	std::vector<SerializeElement*>* serializableElements = new std::vector<SerializeElement*>();
+	std::vector<SerializeElement*> serializableElements;
 protected:
-	char* name;
+	const char* name;
 public:
+	~ISerializable();
 	void AddSerializable(SerializeElement*);
-	std::vector<SerializeElement*>* GetSerializableElements();
-	char* GetName() { return name; }
+	std::vector<SerializeElement*> GetSerializableElements();
+	const char* GetName() { return name; }
 };

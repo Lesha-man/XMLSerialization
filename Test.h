@@ -9,6 +9,7 @@ public:
 	Test2* test2;
 	float SomeFloat;
 	Test(int i, float f);
+	~Test() { delete test2; }
 private:
 };
 
