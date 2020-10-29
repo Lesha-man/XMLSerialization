@@ -1,10 +1,11 @@
 #pragma once
 #include "ISerializable.h"
-class Test2 : public polySerial::ISerializable
+#include "Test3.h"
+
+class Test2 : public Test3
 {
 public:
-	int SomeInt;
-	float SomeFloat;
+	float Flo;
 	Test2(int i, float f);
 private:
 };

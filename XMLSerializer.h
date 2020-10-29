@@ -7,11 +7,10 @@ namespace polySerial
 	public:
 		XMLSerializer() {}
 		~XMLSerializer() {}
-		bool Serialize(ISerializable* obj, char* fileName);
-		bool Deserialize(ISerializable* obj, char* fileName);
+		bool Serialize(ISerializable* obj, std::basic_ostream<char, std::char_traits<char> >& stream);
+		bool Deserialize(ISerializable* obj, std::basic_istream<char, std::char_traits<char> >& stream);
 
 	private:
-		pugi::xml_document document;
 	};
 
 }

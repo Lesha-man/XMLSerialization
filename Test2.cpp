@@ -1,9 +1,6 @@
 #include "Test2.h"
-Test2::Test2(int i, float f) : ISerializable()
+Test2::Test2(int i, float f) : Test3(i, f)
 {
-	sName = "TestingCl";
-	SomeFloat = f;
-	SomeInt = i;
-	AddSerializable(new polySerial::SerializeElement("SomeInt", &SomeInt));
-	AddSerializable(new polySerial::SerializeElement("SomeFloat", &SomeFloat));
+	Flo = 10.10f;
+	AddSerializable(new polySerial::SerializeElement("Flo", &Flo));
 }

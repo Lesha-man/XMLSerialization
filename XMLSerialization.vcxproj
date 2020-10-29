@@ -155,6 +155,8 @@
     <ClCompile Include="pugixml.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Test2.cpp" />
+    <ClCompile Include="Test3.cpp" />
+    <ClCompile Include="XMLTypesSerialization.cpp" />
     <ClCompile Include="XMLSerialization.cpp" />
     <ClCompile Include="XMLSerializer.cpp" />
   </ItemGroup>
@@ -164,7 +166,9 @@
     <ClInclude Include="pugixml.hpp" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Test2.h" />
+    <ClInclude Include="Test3.h" />
     <ClInclude Include="XMLSerializer.h" />
+    <ClInclude Include="XMLTypesSerialization.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="Test.xml">

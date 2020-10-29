@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
 <TestingCl SomeInt="666" SomeFloat="42.2000008">
-	<TestingCl SomeInt="666" SomeFloat="42.2000008" />
+	<TestingCl SomeInt="666" SomeFloat="42.2000008" Flo="10.1000004" />
+	<TestingCl SomeInt="677" SomeFloat="14.0666666" />
 </TestingCl>

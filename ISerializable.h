@@ -1,14 +1,10 @@
 #pragma once
-#include <map>
-#include <string>
 #include <vector>
 #include <typeinfo>
 #include "pugixml.hpp"
 
 namespace polySerial
 {
-	//#define serializableType(type) SerializeElement(std::string name, type* element) : sName(name), sValue(element), sType(e##type) {}
-
 	class ISerializable;
 
 	class SerializeElement
@@ -18,9 +14,12 @@ namespace polySerial
 		const char* sName;
 		const void* sValue;
 		const char* sType;
-		SerializeElement(const char* name, int* element) : sName(name), sValue(element), sType(typeid(element).name()) {}
-		SerializeElement(const char* name, float* element) : sName(name), sValue(element), sType(typeid(element).name()) {}
-		SerializeElement(const char* name, ISerializable* element) : sName(name), sValue(element), sType(typeid(element).name()) {}
+		template<typename T>
+		SerializeElement(const char* name, T* element) : sName(name), sValue(element), sType(typeid(element).name()) 
+		{
+			if (std::is_base_of<ISerializable, T>::value)
+				sType = typeid(ISerializable*).name();
+		}
 	};
 
 	class ISerializable
