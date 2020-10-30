@@ -2,7 +2,7 @@
 
 Test3::Test3(int i, float f):SomeInt(i),SomeFloat(f)
 {
-	sName = "TestingCl";
+	sName = "TestingCl3";
 	AddSerializable(new polySerial::SerializeElement("SomeInt", &SomeInt));
 	AddSerializable(new polySerial::SerializeElement("SomeFloat", &SomeFloat));
 }

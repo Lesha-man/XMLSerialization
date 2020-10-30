@@ -12,9 +12,9 @@ int main()
     std::fstream f("Test.xml", std::ios_base::in | std::ios_base::out);
     polySerial::XMLSerializer xmlSerializer;
     xmlSerializer.Serialize(a, f);
+    f.seekg(f.beg);
+    xmlSerializer.Deserialize(b, f);
     f.close();
-    std::fstream f1("Test.xml", std::ios_base::in | std::ios_base::out);
-    xmlSerializer.Deserialize(b, f1);
     xmlSerializer.Serialize(b, std::cout);
     delete a;
     delete b;

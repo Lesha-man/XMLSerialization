@@ -1,15 +1,18 @@
 #include "XMLTypesSerialization.h"
-#define simpleType(type) 	{typeid(type*).name(),															\
-								[](pugi::xml_node* node, SerializeElement* element)								\
-								{																				\
-									node->append_attribute(element->sName).set_value(*(type*)(element->sValue));\
-								}}																				\
+#define simpleType(type) 			{typeid(type*).name(),															\
+									[](pugi::xml_node* node, SerializeElement* element)								\
+									{																				\
+										node->append_attribute(element->sName).set_value(*(type*)(element->sValue));\
+									}}																				
 
 #define simpleDeType(type, astype) 	{typeid(type*).name(),															\
-										[](pugi::xml_node* node, SerializeElement* element)								\
-										{																				\
-											*(type*)element->sValue = node->attribute(element->sName).as_##astype();		\
-										}}																				\
+									[](pugi::xml_node* node, SerializeElement* element)								\
+									{																				\
+										*(type*)element->sValue = node->attribute(element->sName).as_##astype();	\
+									}}																				
+
+#define hardType(type) 				{typeid(type*).name(),																\
+									[](pugi::xml_node* node, SerializeElement* element)	
 
 using namespace std;
 namespace polySerial
@@ -18,8 +21,7 @@ namespace polySerial
 
 	std::map<const char*, TypeSerialise> SerializableTypes =
 	{
-	{typeid(ISerializable*).name(),
-		[](pugi::xml_node* node, SerializeElement* element)
+		hardType(ISerializable) 
 		{
 			CreateNode((ISerializable*)(element->sValue), &node->append_child(((ISerializable*)(element->sValue))->sName));
 		}},
@@ -31,13 +33,18 @@ namespace polySerial
 		simpleType(unsigned long long),
 		simpleType(float),
 		simpleType(double),
-		simpleType(char),
+		simpleType(const char*),
+		simpleType(char*),
 		simpleType(bool),
-	//{typeid(int*).name(),
-	//	[](pugi::xml_node* node, SerializeElement* element)
-	//	{
-	//		node->append_attribute(element->sName).set_value(*(int*)(element->sValue));
-	//	}},
+		hardType(string)
+		{
+			node->append_attribute(element->sName).set_value((*(string*)(element->sValue)).c_str());
+		}},
+		//{typeid(int*).name(),
+		//[](pugi::xml_node* node, SerializeElement* element)
+		//{
+		//	node->append_attribute(element->sName).set_value(*(int*)(element->sValue));
+		//}},
 	};
 
 	void CreateNode(ISerializable* obj, pugi::xml_node* node)
@@ -54,8 +61,7 @@ namespace polySerial
 
 	std::map<const char*, TypeSerialise> DeserializableTypes =
 	{
-	{typeid(ISerializable*).name(),
-		[](pugi::xml_node* node, SerializeElement* element)
+		hardType(ISerializable)
 		{
 			ReadNode((ISerializable*)element->sValue, &node->child(((ISerializable*)element->sValue)->sName));
 			node->remove_child(((ISerializable*)element->sValue)->sName);
@@ -70,6 +76,20 @@ namespace polySerial
 		simpleDeType(double, double),
 		simpleDeType(string, string),
 		simpleDeType(bool, bool),
+		hardType(char*)
+		{
+			const char* temp = node->attribute(element->sName).as_string();
+			char* str = new char[strlen(temp)];
+			strcpy_s(str, strlen(temp) + 1, temp);
+			*(char**)element->sValue = str;
+		}},
+		hardType(const char*)
+		{
+			char* temp = (char*)node->attribute(element->sName).as_string();
+			char* str = new char[strlen(temp)];
+			strcpy_s(str, strlen(temp) + 1, temp);
+			*(const char**)element->sValue = str;
+		}},
 	};
 
 	void ReadNode(ISerializable* obj, pugi::xml_node* node)

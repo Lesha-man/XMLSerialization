@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TestingCl SomeInt="666" SomeFloat="42.2000008">
-	<TestingCl SomeInt="666" SomeFloat="42.2000008" Flo="10.1000004" />
-	<TestingCl SomeInt="677" SomeFloat="14.0666666" />
-</TestingCl>
+<TestingCl1 SomeInt="666" SomeFloat="42.2000008" doubl="1234.56789" boo="true" strin="hi my friend" c="hi my char" cc="hi my const char">
+	<TestingCl3 SomeInt="666" SomeFloat="42.2000008" Flo="10.1000004" />
+	<TestingCl3 SomeInt="677" SomeFloat="14.0666666" />
+</TestingCl1>
