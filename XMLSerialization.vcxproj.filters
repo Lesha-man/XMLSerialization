@@ -19,6 +19,9 @@
     <Filter Include="Исходные файлы\pugixml">
       <UniqueIdentifier>{57d7c59c-f2c8-409c-9da4-7f3be4a4c83a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\Serialization">
+      <UniqueIdentifier>{4e00a937-f5da-4c90-bcd5-71365c55b824}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="XMLSerialization.cpp">
@@ -62,14 +65,14 @@
     <ClInclude Include="Test3.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="ISerializable.h">
-      <Filter>Исходные файлы\Serialization</Filter>
+    <ClInclude Include="XMLTypesSerialization.h">
+      <Filter>Файлы заголовков\Serialization</Filter>
     </ClInclude>
     <ClInclude Include="XMLSerializer.h">
-      <Filter>Исходные файлы\Serialization</Filter>
+      <Filter>Файлы заголовков\Serialization</Filter>
     </ClInclude>
-    <ClInclude Include="XMLTypesSerialization.h">
-      <Filter>Исходные файлы\Serialization</Filter>
+    <ClInclude Include="ISerializable.h">
+      <Filter>Файлы заголовков\Serialization</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

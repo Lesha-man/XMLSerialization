@@ -3,6 +3,9 @@
 #include <typeinfo>
 #include "pugixml.hpp"
 
+#define serializable(x) AddSerializable(new polySerial::SerializeElement(#x, &x))
+#define serializablePtr(x) AddSerializable(new polySerial::SerializeElement(#x, x))
+
 namespace polySerial
 {
 	class ISerializable;
